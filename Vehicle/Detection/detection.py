@@ -4,7 +4,7 @@ import numpy as np
 from ultralytics import YOLO
 import matplotlib.pyplot as plt
 from PIL import Image
-from CutIm import CropPlate
+# from CutIm import CropPlate
 
 CLASS_NAMES = {
     0: 'person',
@@ -114,6 +114,8 @@ class VehicleDetection:
         return self.vehicle_cordinates
 
 
+
+# for testing
 if __name__ == '__main__':
 
     frame_path = '../../images/taxe.jpg'
@@ -123,7 +125,7 @@ if __name__ == '__main__':
     detector = VehicleDetection()
     vehicles = detector.detect(img)
 
-    for cord in vehicles:
-        vehicle = CropPlate(img, cord).crop()
-        vehicle.show()
+    # for cord in vehicles:
+    #     vehicle = CropPlate(img, cord).crop()
+    #     vehicle.show()
         
