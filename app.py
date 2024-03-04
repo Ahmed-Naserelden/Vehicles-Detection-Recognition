@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image,ImageDraw, ImageFont
 from ultralytics import YOLO
 import matplotlib.pyplot as plt
-
+import os
 from Vehicle.Detection import detection
 from Plate.Detection.detection import PlateDatection
 from Vehicle.Detection import CutIm
@@ -35,7 +35,7 @@ def showimg(image):
 
 # hello from m7dashraf
 if __name__ == '__main__':
-    frame_path = 'images/taxe3.jpg'
+    frame_path = os.path.join(os.getcwd(), 'images', 'taxe.jpg')
     frame = Image.open(frame_path)
     VehicleDetector = detection.VehicleDetection()
 
