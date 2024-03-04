@@ -1,4 +1,5 @@
 import cv2
+import os
 import torch
 import numpy as np
 from ultralytics import YOLO
@@ -92,7 +93,8 @@ CLASS_NAMES = {
 class VehicleDetection:
 
     def __init__(self):
-        self.model = YOLO('../Yolo-Weights/yolov8n.pt')
+        path = os.path.join(os.getcwd(), 'Vehicle', 'Yolo-Weights', 'yolov8n.pt')
+        self.model = YOLO(path)
         self.vehicle_cordinates = []
 
     def detect(self, frame):
@@ -118,8 +120,7 @@ class VehicleDetection:
 # for testing
 if __name__ == '__main__':
 
-    frame_path = '../../images/taxe.jpg'
-
+    frame_path = os.path.join(os.getcwd(), 'images', 'taxe.jpg')
     img = Image.open(frame_path)
 
     detector = VehicleDetection()

@@ -1,4 +1,5 @@
 import cv2
+import os
 import torch
 import numpy as np
 from ultralytics import YOLO
@@ -17,7 +18,8 @@ def custom_key(coord):
 class Recognition:
 
     def __init__(self):
-        self.model = YOLO('/home/biruni/Desktop/Vehicle-Detection-Recognition/License/models/best.pt')
+        path = os.path.join(os.getcwd(), 'License', 'models', 'best.pt')
+        self.model = YOLO(path)
         self.result = []
         # print(self.model.names)
 
@@ -58,8 +60,9 @@ class Recognition:
 
 # for testing
 if __name__ == '__main__':
+    image_path = os.path.join(os.getcwd(), 'images', 'afg.jpg')
     rec = Recognition()
-    result = rec.recog('../../images/afg.jpg')
+    result = rec.recog(image_path)
 
     # print each char in license
     for char in result:
