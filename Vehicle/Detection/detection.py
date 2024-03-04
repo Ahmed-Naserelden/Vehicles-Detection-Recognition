@@ -96,7 +96,7 @@ class VehicleDetection:
         self.vehicle_cordinates = []
 
     def detect(self, frame):
-        result = self.model(frame)
+        result = self.model(frame, conf=.5)
 
 
         # print("Results: ")
