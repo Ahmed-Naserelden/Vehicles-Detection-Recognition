@@ -35,7 +35,7 @@ def showimg(image):
 
 # hello from m7dashraf
 if __name__ == '__main__':
-    frame_path = os.path.join(os.getcwd(), 'images', 'taxe4.jpg')
+    frame_path = os.path.join(os.getcwd(), 'images', 'mohamed1.jpeg')
     frame = Image.open(frame_path)
     VehicleDetector = detection.VehicleDetection()
 
@@ -51,6 +51,9 @@ if __name__ == '__main__':
         platecord = plateDetector.detect(vehicle)
         print("Plate Cord: ", platecord)
 
+        # draw box arround Vehicel
+        frame = draw(frame, cord[0], cord[1], cord[2], cord[3])
+
         if platecord == ():
             continue
 
@@ -63,7 +66,7 @@ if __name__ == '__main__':
         license = recognizer.recog(plate) 
         
         # draw box arround Vehicel
-        frame = draw(frame, cord[0], cord[1], cord[2], cord[3])
+        # frame = draw(frame, cord[0], cord[1], cord[2], cord[3])
         
         # draw box arround Plate and write License
         frame = draw(frame, 

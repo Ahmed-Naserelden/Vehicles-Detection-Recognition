@@ -25,14 +25,17 @@ def draw(image, x1, y1, x2, y2, text="", color=(0, 255, 0), thickness=3):
 
 
 def go2live():
-    path = os.path.join(os.getcwd(), 'videos', 'Traffic in Cairo Egypt.mp4')
+    path = os.path.join(os.getcwd(), 'videos', 'eslam3.mp4')
     cap = cv2.VideoCapture(path)
 
     cn = 0
     while True:
         cn += 1
         success, frame = cap.read()
+        if cn < 20:
+            continue
         frame = Image.fromarray(frame)
+
         VehicleDetector = detection.VehicleDetection()
 
         cords_of_vehicles = VehicleDetector.detect(frame)
@@ -45,7 +48,7 @@ def go2live():
             plateDetector = PlateDatection()
             platecord = plateDetector.detect(vehicle)
             print("Plate Cord: ", platecord)
-
+            frame = draw(frame, cord[0], cord[1], cord[2], cord[3])
             if platecord == ():
                 continue
 
@@ -53,11 +56,12 @@ def go2live():
             plate = CutIm.CropPlate(vehicle, platecord).crop()
 
             # third step Recoginize the License
-            recognizer = Recognition()
-            license = recognizer.recog(plate) 
+            # recognizer = Recognition()
+            license = ""
+            # license = recognizer.recog(plate) 
             
             # draw box arround Vehicel
-            frame = draw(frame, cord[0], cord[1], cord[2], cord[3])
+            # frame = draw(frame, cord[0], cord[1], cord[2], cord[3])
 
             # draw box arround Plate and write License
             frame = draw(frame, 
@@ -73,7 +77,7 @@ def go2live():
         if cv2.waitKey(1) & 0xff == ord('q'):
             break
         
-        if cn == 10:
+        if cn == 400:
             break
     
     cap.release()

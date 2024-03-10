@@ -93,8 +93,8 @@ CLASS_NAMES = {
 class VehicleDetection:
 
     def __init__(self):
-        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         path = os.path.join(os.getcwd(), 'Vehicle', 'Yolo-Weights', 'yolov8n.pt')
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.model = YOLO(path)
         self.model.to(device)
         self.vehicle_cordinates = []
