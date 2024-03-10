@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image,ImageDraw, ImageFont
 from ultralytics import YOLO
 import matplotlib.pyplot as plt
-
+import os
 from Vehicle.Detection import detection
 from Plate.Detection.detection import PlateDatection
 from Vehicle.Detection import CutIm
@@ -33,8 +33,10 @@ def showimg(image):
     plt.imshow(image)
     plt.show()
 
+# hello from m7dashraf
 if __name__ == '__main__':
-    frame_path = 'images/taxe3.jpg'
+    frame_path = os.path.join(os.getcwd(), 'images', 'taxe4.jpg')
+    frame_path = os.path.join(os.getcwd(), 'videos', 'taxe4.jpg')
     frame = Image.open(frame_path)
     VehicleDetector = detection.VehicleDetection()
 
@@ -43,6 +45,7 @@ if __name__ == '__main__':
     for cord in cords_of_vehicles:
         # first step detect Vehicel
         vehicle = CutIm.CropPlate(frame, cord).crop()
+        # showimg(vehicle)
 
         # second step detect Plate
         plateDetector = PlateDatection()
@@ -54,6 +57,7 @@ if __name__ == '__main__':
 
         #crop the part that cotain Plate
         plate = CutIm.CropPlate(vehicle, platecord).crop()
+        # showimg(plate)
 
         # third step Recoginize the License
         recognizer = Recognition()
@@ -61,7 +65,7 @@ if __name__ == '__main__':
         
         # draw box arround Vehicel
         frame = draw(frame, cord[0], cord[1], cord[2], cord[3])
-
+        
         # draw box arround Plate and write License
         frame = draw(frame, 
                 cord[0] + platecord[0], # x1

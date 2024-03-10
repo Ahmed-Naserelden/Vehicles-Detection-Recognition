@@ -1,4 +1,5 @@
 import cv2
+import os
 import torch
 import numpy as np
 from ultralytics import YOLO
@@ -11,7 +12,8 @@ import sys
 
 class PlateDatection:
     def __init__(self):
-        self.model = YOLO('/home/biruni/Desktop/Vehicle-Detection-Recognition/Plate/models/best.pt')
+        path = os.path.join(os.getcwd(), 'Plate', 'models', 'best.pt')
+        self.model = YOLO(path)
         self.cord = []
 
     def detect(self, img):
@@ -38,8 +40,8 @@ class PlateDatection:
 # for testing
 if __name__ == '__main__':
 
-    image_path = '../../images/taxe.jpg'
-    output_image_path = '../../images/Plates/plate1.jpg'
+    image_path = os.path.join(os.getcwd(), 'images', 'afg.jpg')
+    output_image_path = image_path = os.path.join(os.getcwd(), 'images', 'Plates', 'output.jpg')
     img = Image.open(image_path)
 
     model = PlateDatection()
