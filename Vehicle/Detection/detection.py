@@ -6,7 +6,7 @@ from ultralytics import YOLO
 import matplotlib.pyplot as plt
 from PIL import Image
 # from CutIm import CropPlate
-
+# what kind of vehicle is this
 CLASS_NAMES = {
     0: 'person',
     1: 'bicycle',
@@ -110,12 +110,12 @@ class VehicleDetection:
 
             for box in boxes:
                 cls_ = CLASS_NAMES[int(box.cls[0])]
-                if cls_ == 'car' or cls_ == 'bus' or cls_ == 'truck':
+                if cls_ == 'car' or cls_ == 'bus' or cls_ == 'truck' or cls_ == 'motorcycle' or cls_ == 'bicycle':
                     x1, y1, x2, y2 = box.xyxy[0]
                     x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-                    self.vehicle_cordinates.append((x1, y1, x2, y2))
+                    self.vehicle_cordinates.append(((x1, y1, x2, y2), cls_))
 
-        return self.vehicle_cordinates
+        return self.vehicle_cordinates #, cls_
 
 
 
@@ -128,7 +128,7 @@ if __name__ == '__main__':
     detector = VehicleDetection()
     vehicles = detector.detect(img)
 
-    # for cord in vehicles:
+    # for cord, cls_ in vehicles:
     #     vehicle = CropPlate(img, cord).crop()
     #     vehicle.show()
         

@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     cords_of_vehicles = VehicleDetector.detect(frame)
 
-    for cord in cords_of_vehicles:
+    for cord , cls_ in cords_of_vehicles:
         # first step detect Vehicel
         vehicle = CutIm.CropPlate(frame, cord).crop()
         # showimg(vehicle)
