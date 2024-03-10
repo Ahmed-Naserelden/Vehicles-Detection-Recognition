@@ -18,8 +18,10 @@ def custom_key(coord):
 class Recognition:
 
     def __init__(self):
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         path = os.path.join(os.getcwd(), 'License', 'models', 'best.pt')
         self.model = YOLO(path)
+        self.model.to(device)
         self.result = []
         # print(self.model.names)
 

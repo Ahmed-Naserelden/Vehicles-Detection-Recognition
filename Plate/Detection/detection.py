@@ -12,8 +12,10 @@ import sys
 
 class PlateDatection:
     def __init__(self):
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         path = os.path.join(os.getcwd(), 'Plate', 'models', 'best.pt')
         self.model = YOLO(path)
+        self.model.to(device)
         self.cord = []
 
     def detect(self, img):
