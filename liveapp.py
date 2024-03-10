@@ -4,6 +4,7 @@ import torch
 import cv2
 import cvzone
 import numpy as np
+import os
 from PIL import Image,ImageDraw, ImageFont
 from ultralytics import YOLO
 import matplotlib.pyplot as plt
@@ -24,7 +25,7 @@ def draw(image, x1, y1, x2, y2, text="", color=(0, 255, 0), thickness=3):
 
 
 def go2live():
-    path = '/home/biruni/Desktop/Vehicle-Detection-Recognition/videos/Traffic in Cairo Egypt.mp4'
+    path = os.path.join(os.getcwd(), 'videos', 'Traffic in Cairo Egypt.mp4')
     cap = cv2.VideoCapture(path)
 
     cn = 0
