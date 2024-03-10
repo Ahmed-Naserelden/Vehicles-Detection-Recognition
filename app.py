@@ -36,7 +36,6 @@ def showimg(image):
 # hello from m7dashraf
 if __name__ == '__main__':
     frame_path = os.path.join(os.getcwd(), 'images', 'taxe4.jpg')
-    frame_path = os.path.join(os.getcwd(), 'videos', 'taxe4.jpg')
     frame = Image.open(frame_path)
     VehicleDetector = detection.VehicleDetection()
 
