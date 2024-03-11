@@ -65,9 +65,6 @@ if __name__ == '__main__':
         recognizer = Recognition()
         license = recognizer.recog(plate) 
         
-        # draw box arround Vehicel
-        # frame = draw(frame, cord[0], cord[1], cord[2], cord[3])
-        
         # draw box arround Plate and write License
         frame = draw(frame, 
                 cord[0] + platecord[0], # x1

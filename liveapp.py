@@ -15,6 +15,7 @@ from Plate.Detection.detection import PlateDatection
 from Vehicle.Detection import CutIm
 from License.Recognition.recognition import Recognition
 
+# this method draw box
 def draw(image, x1, y1, x2, y2, text="", color=(0, 100, 255), thickness=3):
     image = np.array(image)
     cv2.rectangle(image, (x1, y1), (x2, y2), color, thickness)
@@ -23,7 +24,6 @@ def draw(image, x1, y1, x2, y2, text="", color=(0, 100, 255), thickness=3):
         cv2.putText(image, text, text_position, cv2.FONT_HERSHEY_SIMPLEX, 1, color, 3) 
     image = Image.fromarray(image)
     return image
-
 
 def go2live():
 
@@ -42,16 +42,11 @@ def go2live():
     fourcc = cv2.VideoWriter_fourcc(*'MP4V')
     out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
 
-    cn = 0
     while True:
-        cn += 1
         success, frame = cap.read()
         
         if not success:
             break
-
-        if cn % 2 == 0:
-            continue
 
         frame = Image.fromarray(frame)
 
@@ -67,7 +62,10 @@ def go2live():
             plateDetector = PlateDatection()
             platecord = plateDetector.detect(vehicle)
             print("Plate Cord: ", platecord)
+
+            # draw box arround Vehicel
             frame = draw(frame, cord[0], cord[1], cord[2], cord[3]) #, color=colors[cls_])
+
             if platecord == ():
                 continue
 
@@ -75,16 +73,10 @@ def go2live():
             plate = CutIm.CropPlate(vehicle, platecord).crop()
 
             # third step Recoginize the License
-            # recognizer = Recognition()
-            license = ""
-            # license = recognizer.recog(plate) 
-            
-            # draw box arround Vehicel
-            # frame = draw(frame, cord[0], cord[1], cord[2], cord[3])
+            recognizer = Recognition()
+            license = recognizer.recog(plate) 
 
             # draw box arround Plate and write License
-
-            
             frame = draw(frame, 
                     cord[0] + platecord[0], # x1
                     cord[1] + platecord[1], # y1
@@ -93,17 +85,14 @@ def go2live():
                     text=license,
                     color= (255, 0, 5)
                 )
+
         frame = np.array(frame)
         out.write(frame)  # Write the frame to the output video
-        out.write(frame)
         cv2.imshow("Webcam", frame)
 
         if cv2.waitKey(1) & 0xff == ord('q'):
             break
-        
-        # if cn == 401:
-        #     break
-    
+
     cap.release()
     out.release()
     cv2.destroyAllWindows()

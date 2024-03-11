@@ -127,8 +127,3 @@ if __name__ == '__main__':
 
     detector = VehicleDetection()
     vehicles = detector.detect(img)
-
-    # for cord, cls_ in vehicles:
-    #     vehicle = CropPlate(img, cord).crop()
-    #     vehicle.show()
-        
