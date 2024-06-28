@@ -9,6 +9,19 @@ from PIL import Image
 import sys
 # sys.path.append('')
 # from CutIm import CropPlate
+classes = {
+    "green": 1,
+    "plate license": 4,
+    "dark blue": 6,
+    "beige": 57,
+    "orange": 23,
+    "red": 21,
+    "plates": 1,
+    "light blue": 562,
+    "yellow": 2,
+    "Dark Blue": 7,
+    "grey": 16
+}
 
 class PlateDatection:
     def __init__(self):
@@ -22,10 +35,9 @@ class PlateDatection:
         result = self.model(img)
 
 
-        print("Results: ")
-        # print(result[0])
         for r in result:
             boxes = r.boxes
+            print("Result: ", boxes)
 
             for box in boxes:
 
@@ -34,6 +46,7 @@ class PlateDatection:
                 x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
 
                 self.cord.append((x1, y1, x2, y2))
+
         if self.cord == []:
             return ()
         return self.cord[0]
@@ -42,7 +55,7 @@ class PlateDatection:
 # for testing
 if __name__ == '__main__':
 
-    image_path = os.path.join(os.getcwd(), 'images', 'afg.jpg')
+    image_path = os.path.join(os.getcwd(), 'images', 'taxe4.jpg')
     output_image_path = image_path = os.path.join(os.getcwd(), 'images', 'Plates', 'output.jpg')
     img = Image.open(image_path)
 

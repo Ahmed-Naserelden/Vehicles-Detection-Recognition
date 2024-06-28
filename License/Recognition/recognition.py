@@ -5,8 +5,12 @@ import numpy as np
 from ultralytics import YOLO
 import matplotlib.pyplot as plt
 
-# CLASS_NAMES = {0: 'alif', 1: 'baa', 2: 'daal', 3: 'eight', 4: 'ein', 5: 'faa', 6: 'five', 7: 'four', 8: 'geem', 9: 'haa', 10: 'kaaf', 11: 'laam', 12: 'meem', 13: 'nine', 14: 'noon', 15: 'one', 16: 'qaaf', 17: 'raa', 18: 'saad', 19: 'seen', 20: 'seven', 21: 'six', 22: 'taa', 23: 'three', 24: 'two', 25: 'waaw', 26: 'yaa'}
+# CLASS_NAMES = {0: 'a  lif', 1: 'baa', 2: 'daal', 3: 'eight', 4: 'ein', 5: 'faa', 6: 'five', 7: 'four', 8: 'geem', 9: 'haa', 10: 'kaaf', 11: 'laam', 12: 'meem', 13: 'nine', 14: 'noon', 15: 'one', 16: 'qaaf', 17: 'raa', 18: 'saad', 19: 'seen', 20: 'seven', 21: 'six', 22: 'taa', 23: 'three', 24: 'two', 25: 'waaw', 26: 'yaa'}
 CLASS_NAMES = {0: 'alf', 1: 'baa', 2: 'dal', 3: '8', 4: 'ein', 5: 'faa', 6: '5', 7: '4', 8: 'gem', 9: 'haa', 10: 'kaf', 11: 'lam', 12: 'mem', 13: '9', 14: 'non', 15: '1', 16: 'qaf', 17: 'ra', 18: 'sad', 19: 'sen', 20: '7', 21: '6', 22: 'taa', 23: '3', 24: '2', 25: 'waw', 26: 'yaa'}
+
+CLASS_NAMES = {0: 'ا', 1: 'ب', 2: 'د', 3: '٨', 4: 'ع', 5: 'ف', 6: '٥', 7: '٤', 8: 'ج', 9: 'ھ', 10: 'ك', 11: 'ل', 12: 'م', 13: '9', 14: 'ن', 15: '١', 16: 'ق', 17: 'ر', 18: 'ص', 19: 'س', 20: '٧', 21: '٦', 22: 'ط', 23: '٣', 24: '٢', 25: 'و', 26: 'ي'}
+
+CLASS_NAMES = {0: 'ا', 1: 'ب', 2: 'د', 3: '٨', 4: 'ع', 5: 'ف', 6: '٥', 7: '٤', 8: 'ج', 9: 'ھ', 10: 'ك', 11: 'ل', 12: 'م', 13: '9', 14: 'ن', 15: '١', 16: 'ق', 17: 'ر', 18: 'ص', 19: 'س', 20: '٧', 21: '٦', 22: 'ط', 23: '٣', 24: '٢', 25: 'و', 26: 'ي'}
 # CLASS_NAMES = {0: 'أ', 1: 'ب', 2: 'د', 3: '8', 4: 'ع', 5: 'ف', 6: '5', 7: '4', 8: 'ج', 9: 'ھ', 10: 'ك', 11: 'ل', 12: 'م', 13: '9', 14: 'ن', 15: '1', 16: 'ك', 17: 'ر', 18: 'ص', 19: 'س', 20: '7', 21: '6', 22: 'ط', 23: '3', 24: '2', 25: 'و', 26: 'ي'}
 # CLASS_NAMES = {0: 'أ', 1: 'ب', 2: 'د', 3: '8', 4: 'ع', 5: 'ف', 6: '5', 7: '4', 8: 'ج', 9: 'ھ', 10: 'ك', 11: 'ل', 12: 'م', 13: '9', 14: 'ن', 15: '1', 16: 'ك', 17: 'ر', 18: 'ص', 19: 'س', 20: '7', 21: '6', 22: 'ط', 23: '3', 24: '2', 25: 'و', 26: 'ي'}
 
@@ -56,9 +60,9 @@ class Recognition:
         for char in license:
             ret_license += char
             ret_license += " "
-        print("ret_license =>>>>>>>>>>>>>>>> ", ret_license)
-        return ret_license
-        
+        ret_license = ret_license[:-1]
+        # print("ret_license =>>>>>>>>>>>>>>>> ", ret_license)
+        return ret_license.split()        
 
 # for testing
 if __name__ == '__main__':
