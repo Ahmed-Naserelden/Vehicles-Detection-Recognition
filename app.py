@@ -12,12 +12,12 @@ from Vehicle.Detection import detection
 from Plate.Detection.detection import PlateDatection
 from Vehicle.Detection import CutIm
 from License.Recognition.recognition import Recognition
-# from License.padocr import PaddleOcr
+
 class app:
     def __init__(self):
         pass
 
-def draw(image, x1, y1, x2, y2, text="", color=(0, 255, 0), thickness=3, font_path="IBMPlexSansArabic-Regular.ttf", font_size=50):
+def draw(image, x1, y1, x2, y2, text="", color=(0, 255, 0), thickness=3, font_path="IBMPlexSansArabic-Regular.ttf", font_size=42):
     # Convert PIL image to NumPy array
     image = np.array(image)
     
@@ -33,8 +33,8 @@ def draw(image, x1, y1, x2, y2, text="", color=(0, 255, 0), thickness=3, font_pa
     
     # Draw text if provided
     if text != "":
-        text_position = (x1, y1 - font_size)  # Adjust text position to be above the rectangle
-        draw.text(text_position, text, font=font, fill=color)
+        text_position = (x1 - 3*font_size, y1 - font_size)  # Adjust text position to be above the rectangle
+        draw.text(text_position, f"{text[::-1]}", font=font, fill=(255, 50, 100))
         
     # Convert back to NumPy array
     image = np.array(image_pil)
@@ -45,31 +45,26 @@ def draw(image, x1, y1, x2, y2, text="", color=(0, 255, 0), thickness=3, font_pa
     return image
 
 
-    
+
 def showimg(image):
     image = np.array(image)
     plt.imshow(image)
     plt.show()
 
-# hello from m7dashraf
 if __name__ == '__main__':
-    frame_path = os.path.join(os.getcwd(), 'images', 'taxe4.jpg')
+    frame_path = os.path.join(os.getcwd(), 'images', 'car13.jpg')
     frame = Image.open(frame_path)
     VehicleDetector = detection.VehicleDetection()
 
     cords_of_vehicles = VehicleDetector.detect(frame)
-
     for cord , cls_ in cords_of_vehicles:
         # first step detect Vehicel
         vehicle = CutIm.CropPlate(frame, cord).crop()
-        # showimg(vehicle)
 
         # second step detect Plate
         plateDetector = PlateDatection()
         platecord = plateDetector.detect(vehicle)
-        # print("Plate Cord: ", platecord)
 
-        # draw box arround Vehicel
         frame = draw(frame, cord[0], cord[1], cord[2], cord[3])
 
         if platecord == ():
@@ -77,26 +72,21 @@ if __name__ == '__main__':
 
         #crop the part that cotain Plate
         plate = CutIm.CropPlate(vehicle, platecord).crop()
-        # showimg(plate)
 
         # third step Recoginize the License
         recognizer = Recognition()
         license = recognizer.recog(plate) 
-        # ocr = PaddleOcr()
-        # license = ocr.recog(plate)
+
         print(license)
-        for i in license:
-            print(i)
-        # print(f"License{0} ===== > ",license)
-        # draw box arround Plate and write License
+
         frame = draw(frame, 
                 cord[0] + platecord[0], # x1
                 cord[1] + platecord[1], # y1
                 cord[0] + platecord[2], # x2
                 cord[1] + platecord[3], # y2
-                text=''.join(license),
+                text=license,
                 color=(255, 0, 5)
             )
-
+        
     showimg(frame)
 

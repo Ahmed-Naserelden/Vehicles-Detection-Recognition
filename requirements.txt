@@ -2,9 +2,5 @@ cvzone==1.6.1
 opencv-python==4.9.0.80
 torch==2.2.0
 ultralytics==8.1.10
-easyocr==1.7.1
-paddleocr>=2.0.1
 setuptools==70.1.0
 numpy==1.26.4
-paddlepaddle==2.6.1
-paddlepaddle-gpu==2.6.1
